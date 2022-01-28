@@ -1,0 +1,88 @@
+<html>
+   <head>
+		<script type="text/javascript">
+			function createSVG(e) {
+				return document.createElementNS("http://www.w3.org/2000/svg",e);
+			}
+			function left(v) {
+				x = v[0];
+				y = v[1];
+				v[0] = y;
+				v[1] = -x;
+			}
+			function right(v) {
+				x = v[0];
+				y = v[1];
+				v[0] = -y;
+				v[1] = x;
+			}
+			function A(list,v,k) {
+				if (k > 0) {
+					left(v);
+					B(list,v,k-1);
+					list.push([v[0],v[1]]);
+					right(v);
+					A(list,v,k-1);
+					list.push([v[0],v[1]]);
+					A(list,v,k-1);
+					right(v);
+					list.push([v[0],v[1]]);
+					B(list,v,k-1);
+					left(v);					
+				}
+			}
+			function B(list,v,k) {
+				if (k > 0) {
+					right(v);
+					A(list,v,k-1);
+					list.push([v[0],v[1]]);
+					left(v);
+					B(list,v,k-1);
+					list.push([v[0],v[1]]);
+					B(list,v,k-1);
+					left(v);
+					list.push([v[0],v[1]]);
+					A(list,v,k-1);
+					right(v);					
+				}
+			}
+		    function doit(k) {
+                k--;
+				var svgdiv = document.getElementById('svg1');
+				var r0 = 600;
+				var list = [];
+				var v = [1,0];
+				var f = Math.pow(0.5,k);
+				var r = r0*f;
+				A(list,v,k+1);
+				var pathd = "M "+(r0*f/2)+" "+(2*r0 - r0*f/2)+" ";
+				for (var i = 0; i < list.length; ++i) {
+					var v = list[i];
+					pathd += 'l '+(v[0]*r)+' '+(v[1]*r)+' ';
+				}
+				var subdiv = document.createElement('div');
+				var svg = createSVG('svg');
+				svg.setAttribute('width',r0*2);
+				svg.setAttribute('height',r0*2);
+				var c = createSVG('path');
+				c.setAttribute('d',pathd);
+				c.setAttribute('stroke','black');
+				c.setAttribute('stroke-width',1);
+				c.setAttribute('fill','none');
+				svg.appendChild(c);
+				var p = document.createElement('p');
+				subdiv.appendChild(p);
+				subdiv.appendChild(svg);
+				svgdiv.appendChild(subdiv);
+            }
+            function start() {
+                doit(parseInt(document.getElementById("inp").value))
+            }
+        </script>
+        <input type = "text" id = "inp">
+        <button onclick="start()">Start</button>
+   </head>
+   <body>
+      <div id="svg1"></div>
+   </body>
+</html>

@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css?family=Pacifico&display=swap');
+
+.photo-background {
+  background-attachment: fixed;
+  background-clip: border-box;
+  background-position: center;
+  background-size: auto 100%;
+  background-blend-mode: overlay;
+}
+
+@media screen and (min-aspect-ratio: 3/2) {
+  .photo-background {
+    background-size: 100% auto;
+  }
+}
+
+header {
+  background-image: url('../../../../../assets/bg_2.jpg');
+  min-height: 80vh;
+  text-align: center;
+}
+
+header h1 {
+  font-family: 'Pacifico', cursive;
+  font-size: 450%;
+}
+
+header > * {
+  margin: 10px auto;
+}
+
+header button {
+  margin: 40px auto;
+}
+
+.home-section {
+  min-height: 60vh;
+  text-align: center;
+}
+
+
+.home-section h2 {
+  font-size: 250%;
+}
+
+.home-section h5 {
+  font-weight: lighter;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.home-section img {
+  max-width: 90vw;
+}
+
+#section-1 h2 {
+  margin: 10vh auto 0;
+}
+
+#section-1 > div {
+  margin: 0 auto 10vh;
+}
+
+#section-4 {
+  background-image: url('../../../../../assets/bg_1.jpg');
+}
+
+::ng-deep .mat-form-field-label {
+  color: #fff;
+}
+
+::ng-deep.mat-form-field-underline {
+  /*change color of underline*/
+  background-color: #fff !important;
+}
+
+#div-bg {
+  background-image: url('../../../../../assets/sq_4.jpg');
+  background-attachment: local;
+  background-position: center;
+}
+
+@media (min-width: 960px) {
+  .home-section h2 {
+    font-size: 350%;
+  }
+}

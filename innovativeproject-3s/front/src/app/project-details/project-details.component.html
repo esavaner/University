@@ -1,0 +1,166 @@
+<div class="project min-vh-100">
+    <div class="sticky">
+        <app-navbar></app-navbar>
+        <div class="container col-12 col-md-5">
+            <div class="collapse border item mt-5" id="deleteProject">
+                <div class="row">
+                    <div class="col">
+                        <h4 class="pl-3 pt-3">This action cannot be undone</h4>
+                        <hr>
+                        <p class="p-3" *ngIf="selected | async">You are deleting project
+                            <strong>{{(selected | async).name}}</strong>. Are You sure?</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mx-auto pb-4">
+                        <span (click)="delProject()" data-toggle="collapse" href="#deleteProject" role="button"
+                            aria-expanded="false">
+                            <button class="btn btn-outline-danger">Delete Project</button>
+                        </span>
+                        <span (click)="toggle()" data-toggle="collapse" href="#deleteProject" role="button"
+                            aria-expanded="false">
+                            <button class="btn btn-primary ml-3">Cancel</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-2 fixed-bottom" [ngStyle]="{'filter': blurValue}">
+            <div *ngIf="success" class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Scan finished</strong>
+                <p>Please check Your e-mail for further details</p>
+                <span (click)="closeSuccess()">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </span>
+            </div>
+            <div *ngIf="sending" class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Sending scan</strong>
+                <p>Please wait for results</p>
+                <span (click)="closeSending()">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </span>
+            </div>
+            <div *ngIf="failure" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Scan failed</strong>
+                <p>Please retry or try again later</p>
+                <span (click)="closeFailure()">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="selected | async" class="container col-10 col-xl-8" [ngStyle]="{'filter': blurValue}">
+        <div class="item border">
+            <div class="row p-3">
+                <div class="col-1"></div>
+                <div class="col-11">
+                    <h5><b>{{(selected | async).name}}</b></h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col-10">
+                    <table class="table table-hover details-scrollbar">
+                        <tbody *ngFor="let scan of (selected | async).scans; index as i;">
+                            <tr>
+                                <th scope="row">{{i+1}}</th>
+                                <td>{{scan.toolName}}</td>
+                                <td>{{scan.stringDate}}</td>
+                                <td>
+                                    <span *ngIf="scan.status=='positive'" style="font-size: 1em; color: green">
+                                        <i class="fa fa-check-square"></i>&nbsp;Successful
+                                    </span>
+                                    <span *ngIf="scan.status=='negative'" style="font-size: 1em; color: red">
+                                        <i class="fa fa-minus-square"></i>&nbsp;Failure
+                                    </span>
+                                    <span *ngIf="scan.status=='waiting'" style="font-size: 1em; color: orange">
+                                        <i class="fa fa-pause-circle"></i>&nbsp;Waiting
+                                    </span></td>
+                                <td>
+                                    <span *ngIf="scan.log" (click)="setLog(scan.log)"><button
+                                            class="btn btn-outline-secondary" data-toggle="modal"
+                                            data-target="#exampleModal">Log</button></span>
+                                    <span *ngIf="!scan.log"><button disabled class="btn btn-outline-secondary"
+                                            data-toggle="modal" data-target="#exampleModal">No Log</button></span>&nbsp;
+                                    <button [disabled]="loading" class="btn btn-outline-danger"
+                                        (click)="trigger(scan)">Trigger
+                                        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                                    </button></td>
+                                <td style="cursor: pointer;">
+                                    <span style="font-size: 1.4em;"><i class="fa fa-edit"></i></span>&nbsp;
+                                    <span style="font-size: 1.5em; color: red;"><i class="fa fa-trash"></i></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row p-3">
+                <div class="col-auto mx-auto">
+                    <span (click)="toggle()" data-toggle="collapse" href="#deleteProject" role="button"
+                        aria-expanded="false">
+                        <button class="btn btn-outline-danger">Delete project</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!selected">
+        <div class="container">
+            <div class="row">
+                <h1 class="mx-auto">404</h1>
+            </div>
+            <div class="row">
+                <h5 class="mx-auto">Could not find project</h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Scan results</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div *ngIf="log" class="modal-body">
+                <h4>Target: <strong>{{log.Target}}</strong></h4>
+                <table class="table-hover w-100">
+                    <thead>
+                        <tr>
+                            <td>#</td>
+                            <td>Vulnerability ID</td>
+                            <td>Name</td>
+                            <td>Installed Version</td>
+                            <td>Fixed Version</td>
+                            <td>Severity</td>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let item of log.Vulnerabilities; index as i;">
+                        <tr>
+                            <td>{{i+1}}</td>
+                            <td>{{item.VulnerabilityID}}</td>
+                            <td>{{item.PkgName}}</td>
+                            <td>{{item.InstalledVersion}}</td>
+                            <td>{{item.FixedVersion}}</td>
+                            <td>{{item.Severity}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

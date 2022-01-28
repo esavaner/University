@@ -1,0 +1,45 @@
+<mat-horizontal-stepper #stepper [linear]="true">
+  <mat-step>
+    <mat-dialog-title>
+      <ng-template matStepLabel>Select template</ng-template>
+    </mat-dialog-title>
+    <mat-dialog-content fxLayout="row wrap" fxLayoutAlign="space-between stretch">
+      <ng-container *ngIf="templatePipe | async as templates">
+        <img (click)="selectTemplate(template)" *ngFor="let template of templates"
+          [class.selected]="isSelected(template)" [src]="template.sectionImage" alt="Template" class="section-template"
+          fxFlex>
+      </ng-container>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button (click)="putTemplate(); stepper.next()" [disabled]="!selectedTemplate" color="primary" mat-flat-button>
+        Select
+      </button>
+      <button (click)="dialogRef.close()" mat-stroked-button color="warn">Close</button>
+    </mat-dialog-actions>
+  </mat-step>
+  <mat-step>
+    <mat-dialog-title>
+      <ng-template matStepLabel>Fill</ng-template>
+    </mat-dialog-title>
+    <mat-dialog-content>
+      <section-creation [template]="formTemplate"></section-creation>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button (click)="stepper.next()" color="primary" mat-flat-button>Next</button>
+      <button (click)="dialogRef.close()" mat-stroked-button color="warn">Close</button>
+    </mat-dialog-actions>
+  </mat-step>
+  <mat-step>
+    <mat-dialog-title>
+      <ng-template matStepLabel>Preview</ng-template>
+    </mat-dialog-title>
+    <ng-container *ngIf="formTemplate">
+      <section-show [parentForm]="formTemplate"></section-show>
+    </ng-container>
+    <mat-dialog-actions>
+      <button (click)="saveSection()" color="primary" mat-flat-button>Save</button>
+      <button color="primary" mat-stroked-button matStepperPrevious>Back</button>
+      <button (click)="dialogRef.close()" mat-stroked-button color="warn">Close</button>
+    </mat-dialog-actions>
+  </mat-step>
+</mat-horizontal-stepper>

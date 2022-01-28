@@ -1,0 +1,20 @@
+button {
+  width: 100%;
+  border: 2px dashed #839FAD;
+  background-color: rgba(9, 160, 222, .1);
+  font-size: 200%;
+  height: 150px;
+  color: rgba(9, 160, 222, 0);
+  background-image: url("../../../../../assets/add_section_btn.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  transition-duration: 250ms;
+  background-clip: content-box;
+  margin-bottom: 20px;
+}
+
+button:hover {
+  background-color: rgba(9, 160, 222, .2);
+  background-image: unset;
+  color: rgba(9, 160, 222, .8);
+}

@@ -1,0 +1,77 @@
+<ng-container *ngIf="!offerItemsFiltered">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-container>
+<div fxLayout="column" fxLayoutAlign="center center">
+  <div class="card m-2" ngClass.gt-sm="w-75" ngClass.lt-md="w-100 ml-3 mr-3">
+    <div class="card-body">
+      <h3 class="card-title text-primary font-weight-lighter mb-0">Artfolios Offer Dashboard</h3>
+      <h6 class="card-title font-weight-lighter mt-1">Search for one-time work offers</h6>
+      <form (keydown.enter)="$event.preventDefault()" (ngSubmit)="onSubmit()" [formGroup]="form" fxLayout="column"
+        fxLayout.gt-xs="row wrap" class="p-2" fxLayoutAlign="center stretch"
+        fxLayoutAlign.gt-xs="space-between stretch">
+        <mat-form-field fxFlex="100">
+          <input formControlName="search" matInput maxlength="50" placeholder="Filter in offers' titles">
+        </mat-form-field>
+        <mat-form-field fxFlex="22">
+          <mat-select formControlName="city" placeholder="City">
+            <ng-container *ngIf="cityPipe | async as list">
+              <mat-option *ngFor="let city of list" [value]="city.name">
+                {{city.name}}
+              </mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+        <div [formGroup]="profession" fxFlex="22" fxFlexOffset.gt-xs="4" fxLayout="column">
+          <mat-form-field>
+            <mat-select formControlName="name" multiple placeholder="Profession">
+              <ng-container *ngIf="professionPipe | async as list">
+                <mat-option *ngFor="let profession of list" [value]="profession.name">
+                  {{profession.name}}
+                </mat-option>
+              </ng-container>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <mat-form-field fxFlex="22" fxFlexOffset.gt-xs="4">
+          <mat-icon matPrefix>attach_money</mat-icon>
+          <input [min]="0" [max]="maxValue" formControlName="priceMin" matInput placeholder="Price Min" type="number">
+        </mat-form-field>
+
+        <mat-form-field fxFlex="22" fxFlexOffset.gt-xs="4">
+          <mat-icon matPrefix>attach_money</mat-icon>
+          <input [min]=minValue formControlName="priceMax" matInput placeholder="Price Max" type="number">
+        </mat-form-field>
+
+        <div class="mt-3" fxFlex="100" fxLayout="row-reverse" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+          <button class="btn btn-primary" [disabled]="!form.dirty" type="submit">Apply filters</button>
+          <button *ngIf="form.dirty" (click)="clearForm()" class="btn btn-outline-primary">Clear</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="card m-2" ngClass.gt-sm="w-75" ngClass.lt-md="w-100 ml-3 mr-3">
+    <div class="card-body pt-2 pb-2" fxLayout="row" fxLayoutAlign="space-between center" fxLayout.lt-sm="column">
+      <h6 fxFlex="30" class="font-weight-lighter m-0" ngClass.lt-sm="d-none">Sort</h6>
+      <mat-form-field fxFlex="40">
+        <mat-select placeholder="Sort with">
+          <mat-option [value]="1" (onSelectionChange)="sortBy(true, 'endDate', $event)">
+            Remaining time: ascending
+          </mat-option>
+          <mat-option [value]="2" (onSelectionChange)="sortBy(false, 'endDate', $event)">
+            Remaining time: descending
+          </mat-option>
+          <mat-option [value]="3" (onSelectionChange)="sortBy(false, 'price', $event)">
+            Price: descending
+          </mat-option>
+          <mat-option [value]="4" (onSelectionChange)="sortBy(true, 'price', $event)">
+            Price: ascending
+          </mat-option>
+              </mat-select>
+        </mat-form-field>
+    </div>
+  </div>
+</div>
+<ng-container *ngIf="offerItemsFiltered">
+  <offer-show *ngFor="let offer of offerItemsFiltered" [offerId]="offer.id"></offer-show>
+</ng-container>
+

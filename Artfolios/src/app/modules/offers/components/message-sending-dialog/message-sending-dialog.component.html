@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Apply for an offer</h1>
+<form (keydown.enter)="$event.preventDefault()" (ngSubmit)="onSubmit()" [formGroup]="form" fxLayout="column" class="p-2"
+      fxLayoutAlign="space-between stretch">
+  <div fxLayout="column" fxLayoutAlign="start start" mat-dialog-content>
+    <mat-slide-toggle matInput formControlName="attachPortfolio" color="primary">Attach portfolio</mat-slide-toggle>
+    <mat-form-field class="field-input" class="w-100">
+            <textarea formControlName="message" matInput placeholder="Your message" maxlength="200"
+                      rows="2"></textarea>
+    </mat-form-field>
+  </div>
+  <div class="mb-1" fxLayout="row" fxLayoutAlign="end stretch" mat-dialog-actions fxLayoutGap="3px">
+    <button color="primary" type="submit" mat-flat-button [disabled]="!this.form.valid">Send message</button>
+    <button (click)="dialogRef.close()" class="btn btn-outline-primary">Cancel</button>
+  </div>
+</form>

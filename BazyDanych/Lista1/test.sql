@@ -1,0 +1,1 @@
+SELECT AVG(amount) FROM payment WHERE payment_date LIKE '2005-07-07%';

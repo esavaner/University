@@ -1,0 +1,113 @@
+@import url(../chat-list/chat-list.component.scss);
+
+.single-message {
+  border-radius: 20px;
+  background: #09a0de;
+  color: white;
+  padding: 7px 15px;
+  margin-bottom: 2px;
+  max-width: 75%;
+  user-select: text;
+}
+
+.in-message-link {
+  color: lightblue;
+}
+
+.in-message-link:hover {
+  color: white;
+}
+
+.other {
+  color: black;
+  background: #efebef;
+}
+
+.top {
+  padding: 5px 10px;
+  border-bottom: 1px solid #efebef;;
+}
+
+.topUser {
+  font-size: 1.5rem;
+}
+
+.bottom {
+  padding: 20px 10px;
+  //border-top: 1px solid black;
+}
+
+.msg {
+  min-height: 40px;
+}
+
+.messageInput {
+  border-radius: 20px;
+  padding: 7px 15px;
+  border: 1px solid #f5f1f5;
+  background-color: #f5f1f5;
+  outline: none;
+}
+
+.btn-send {
+  border-radius: 20px;
+}
+
+.cont {
+  height: 95vh;
+  //border-left: 1px solid #efebef;
+}
+
+.msg-right-top {
+  border-bottom-right-radius: 5px;
+}
+
+.msg-right-mid {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.msg-right-bot {
+  border-top-right-radius: 5px;
+}
+
+.msg-left-top {
+  border-bottom-left-radius: 5px;
+}
+
+.msg-left-mid {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.msg-left-bot {
+  border-top-left-radius: 5px;
+}
+
+.options {
+  color: #b0b0b0;
+  cursor: pointer;
+}
+
+.img-cont {
+  height: 35px;
+  width: 35px;
+}
+
+.msg-image {
+  height: 100%;
+  width: 100%;
+}
+
+.deleted-message {
+  background: white;
+  border: 1px solid black;
+  font-style: italic;
+  color: black;
+}
+
+.msg-tooltip {
+  font-size: 0.7rem;
+  background: rgba(0, 0, 0, 0.9);
+}
+

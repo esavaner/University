@@ -1,0 +1,70 @@
+<ng-container *ngIf="offer">
+  <div class="card offer-card text-break" [class.offer-not-active]="!offer.isActive">
+    <div class="card-header bg-primary">
+      <h3 class="card-title offer-title font-weight-lighter p-0 m-0">
+        <a class="text-white text-decoration-none" routerLink="/offers/{{offerId}}">{{offer.title}}</a>
+      </h3>
+    </div>
+    <div class="card-body p-0">
+      <div class="text-center m-0 pt-2 pb-2" fxLayout="column" fxLayout.gt-xs="row wrap" fxLayoutAlign="start stretch"
+           fxLayoutAlign.gt-xs="space-between start">
+        <p fxFlex class="m-0" *ngIf="offer.isActive">
+          <mat-icon [inline]="true" class="text-primary">calendar_today</mat-icon>
+          {{offer.endDate.seconds * 1000 | date: 'dd.MM.yyyy'}}
+        </p>
+        <p fxFlex class="m-0" *ngIf="offer.isActive">
+          <mat-icon [inline]="true" class="text-primary ml-1">timer</mat-icon>
+          {{remainingTime.days}}d {{remainingTime.hours}}h
+        </p>
+        <p fxFlex class="m-0">
+          <mat-icon [inline]="true" class="text-primary ml-1">room</mat-icon>
+          {{offer.city}}
+        </p>
+      </div>
+      <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutAlign="start stretch"
+           fxLayoutAlign.gt-xs="space-between stretch">
+        <div fxFlex="60" class="offer-desc">
+          <h5
+            class="text-primary text-center text-uppercase font-weight-bolder w-100 mt-3 mb-1">{{offer.profession.name}}</h5>
+          <p *ngIf="fullView" class="p-3 text-justify">{{offer.description}}</p>
+          <p *ngIf="!fullView" class="p-3 text-justify">{{offer.description.substr(0, 200).concat('...')}} <a
+            routerLink="/offers/{{offerId}}">Read more</a></p>
+        </div>
+        <div fxFlex="40" class="offer-price" fxLayout="column" fxLayoutAlign="center center">
+          <p>$<span>{{offer.price}}</span></p>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer bg-white" fxLayout="row wrap" fxLayoutAlign="end stretch" fxLayoutGap="10px">
+      <ng-container *ngIf="!isOwner">
+        <ng-container *ngIf="hasPortfolio">
+          <button class="btn btn-success"(click)="openMessageDialog()">Apply</button>
+        </ng-container>
+        <ng-container *ngIf="!hasPortfolio">
+          <p class="text-muted">To be able to apply for offers, you must have portfolio first</p>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="isOwner">
+        <button *ngIf="offer.isActive" class="btn btn-dark" title="Deactivate offer" (click)="deactivateOffer()">
+          <mat-icon [inline]="true">visibility_off</mat-icon>
+        </button>
+        <button *ngIf="!offer.isActive" class="btn btn-success" title="Renew offer for 7 days from now"
+                (click)="renewOffer()">
+          <mat-icon [inline]="true">refresh</mat-icon>
+        </button>
+        <button class="btn btn-info" title="Edit offer" (click)="editOffer()">
+          <mat-icon [inline]="true">edit</mat-icon>
+        </button>
+        <button class="btn btn-danger" title="Delete offer" (click)="deleteOffer()">
+          <mat-icon [inline]="true">delete</mat-icon>
+        </button>
+      </ng-container>
+    </div>
+  </div>
+</ng-container>
+<ng-container *ngIf="!offer">
+  <h1 class="w-100 mt-5 mb-0 pb-1 text-primary font-weight-light text-center">We didn't find the offer your were looking
+    for :(</h1>
+  <h4 class="w-100 mt-0 text-muted font-weight-lighter text-center">Check your link or search for offers <a
+    routerLink="/offers">here</a></h4>
+</ng-container>

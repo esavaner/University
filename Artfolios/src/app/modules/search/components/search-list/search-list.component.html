@@ -1,0 +1,41 @@
+<div fxLayout="column" fxLayoutAlign="center center">
+  <div class="card m-2" ngClass.gt-sm="w-75" ngClass.lt-md="w-100 ml-3 mr-3">
+    <div class="card-body">
+      <h3 class="card-title text-primary font-weight-lighter mb-0">Artfolios Search</h3>
+      <h6 class="card-title font-weight-lighter mt-1">Try to find artists</h6>
+      <form [formGroup]="searchForm" (ngSubmit)="clickSearch()" fxLayout="column"
+            fxLayout.gt-xs="row wrap" class="p-2" fxLayoutAlign="center stretch"
+            fxLayoutAlign.gt-xs="space-between baseline">
+        <mat-form-field fxFlex="40">
+          <input matInput type="text" placeholder="Search" formControlName="text">
+        </mat-form-field>
+        <mat-form-field fxFlex="22" fxFlexOffset.gt-xs="1">
+          <mat-select disableOptionCentering formControlName="location" placeholder="Location">
+            <mat-option>Select city</mat-option>
+            <ng-container *ngIf="locationList | async as list">
+              <mat-option *ngFor="let city of list" [value]="city.name">
+                {{city.name}}
+              </mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field fxFlex="22" fxFlexOffset.gt-xs="1">
+          <mat-select formControlName="tag" maxlength="5" multiple placeholder="Profession">
+            <ng-container *ngIf="proffList | async as list">
+              <mat-option *ngFor="let profession of list" [value]="profession.name">
+                {{profession.name}}
+              </mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+        <button class="btn btn-primary" type="submit" fxFlex="13" fxFlexOffset.gt-xs="1">Search</button>
+      </form>
+      <span fxLayoutAlign="end" *ngIf="click && !searching" class="text-danger">At least one field is required</span>
+    </div>
+  </div>
+</div>
+<ng-container *ngIf="searching">
+  <div *ngFor="let portfolio of displayPortfolioList | async" class="mb-3">
+    <search-show [portfolio]="portfolio"></search-show>
+  </div>
+</ng-container>

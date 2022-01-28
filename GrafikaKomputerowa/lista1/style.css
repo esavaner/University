@@ -1,0 +1,12 @@
+button, canvas {
+    position: relative;
+}
+
+button {
+    z-index: 1;
+}
+
+canvas {
+    border: 1px solid #d3d3d3;
+    z-index: 0;
+}

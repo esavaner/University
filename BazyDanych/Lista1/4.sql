@@ -1,0 +1,1 @@
+SELECT f.title FROM film f INNER JOIN film_category c ON f.film_id = c.film_id AND c.category_id = 6 WHERE f.description NOT LIKE '%Docum%';

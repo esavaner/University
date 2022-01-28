@@ -1,0 +1,56 @@
+<ng-container *ngIf="chat$ | async as chat">
+  <div class="cont" fxLayout="column">
+
+    <div fxLayout="row" fxLayoutAlign="space-between stretch" class="top" style="min-height: 75px">
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+        <button class="btn btn-outline-primary btn-send m-sm-2 mr-4" routerLink="/inbox">
+          <mat-icon [inline]="true">arrow_back</mat-icon>
+        </button>
+        <img height="40px" width="40px" class="circle-image" src="{{photoUrls.get(otherUser)}}">
+        <div class="text-dark topUser">{{ userNames.get(otherUser) }}</div>
+      </div>
+      <div *ngIf="otherUser" [ngStyle.lt-sm]="{display: 'none'}">
+        <app-ratebar [idUser]="otherUser" [disabled]="false"></app-ratebar>
+      </div>
+    </div>
+
+
+    <div #messages (scroll)="onScroll(chat.messages.length)" class="overflow-auto h-100 pt-2 pl-1 pr-1 ">
+      <div class="msg" *ngFor="let msg of chat.messages;index as i; trackBy: trackByCreated">
+        <div *ngIf="msg.uid === otherUser" fxLayout="row" fxLayoutAlign="start center">
+          <div class="img-cont">
+            <img *ngIf="detPhoto(i, chat.messages)" class="msg-image circle-image" src="{{photoUrls.get(msg.uid)}}">
+          </div>
+          <div title="{{msg.createdAt | date: 'dd.MM.yyyy HH:mm'}}"
+            [ngClass]="['single-message','other', 'ml-1','text-break','text-wrap',detRadiusClass(i, chat.messages), detDeltedClass(msg.content)]"
+            [innerHTML]="msg.content ? (msg.content | linkify) : deletedText">
+          </div>
+        </div>
+        <div *ngIf="msg.uid !== otherUser" fxLayout="row" fxLayoutAlign="end center" (mouseenter)="opt.hidden = false"
+             (mouseleave)="opt.hidden = true">
+          <div #opt (click)="deleteMessage(chat.id, msg)" class="options" hidden="hidden">
+            <mat-icon matTooltip="Delete message" [matTooltipClass]="'msg-tooltip'" matTooltipPosition="before">delete_outline</mat-icon>
+          </div>
+          <div title="{{msg.createdAt | date: 'dd.MM.yyyy HH:mm'}}"
+               [ngClass]="['single-message', 'mr-1','text-break','text-wrap',detRadiusClass(i, chat.messages), detDeltedClass(msg.content)]"
+               [innerHTML]="msg.content ? (msg.content | linkify) : deletedText" >
+          </div>
+          <div class="img-cont">
+            <img *ngIf="detPhoto(i, chat.messages)" class="msg-image circle-image" src="{{photoUrls.get(msg.uid)}}">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form bottom">
+      <div fxLayout="row" fxLayoutAlign="space-between fill">
+        <input class="messageInput" fxFlex="85" placeholder="Type your message..." [(ngModel)]="newMsg"
+               (keydown.enter)="submit(chat.id)">
+        <button fxFlex="10" class="btn btn-outline-primary btn-send" (click)="submit(chat.id)">
+          <mat-icon [inline]="true">send</mat-icon>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</ng-container>

@@ -1,0 +1,226 @@
+<div class="project min-vh-100">
+    <div class="sticky">
+        <app-navbar></app-navbar>
+        <div class="container col-12 col-lg-9 col-xl-7 mt-4">
+            <div class="collapse border item" id="addProject">
+                <div class="col addHeader p-3" style="font-size: 120%;">
+                    Add new project
+                    <span class="float-right" data-toggle="collapse" href="#addProject" role="button"
+                        aria-expanded="false" aria-controls="addProject" style="cursor: pointer;" (click)="toggle()"><i
+                            class="fa fa-times"></i></span>
+                </div>
+                <form class="p-3" [formGroup]="projectForm">
+                    <div class="form-group border p-3">
+                        <label for="name">
+                            <h5>Name</h5>
+                        </label>
+                        <input class="form-control" type="text" formControlName="name" placeholder="Project name" />
+                    </div>
+                    <div class="row">
+                        <form [formGroup]="userForm" class="col-5">
+                            <div class="form group border p-3" style="min-height: 198px;">
+                                <label for="users">
+                                    <h5>Users</h5>
+                                </label>
+                                <div class="row p-2 mt-2">
+                                    <div class="col-8">
+                                        <select class="form-control" formControlName="user">
+                                            <option value="" disabled selected>Pick user</option>
+                                            <option>admin@nokia.com</option>
+                                            <option>user@nokia.com</option>
+                                            <option>user0@nokia.com</option>
+                                            <option>user1@nokia.com</option>
+                                            <option>user2@nokia.com</option>
+                                            <option>user3@nokia.com</option>
+                                            <option>user4@nokia.com</option>
+                                        </select>
+                                    </div>
+                                    <div class="col">
+                                        <button class="btn btn-outline-primary" (click)="addUser()">Add</button></div>
+                                </div>
+                                <div class="p-2" *ngFor="let user of userList; index as i;">
+                                    <div class="row mr-2 text-center">
+                                        <div class="col">{{i + 1}}</div>
+                                        <div class="col">{{user.email}}</div>
+                                        <div class="col">{{user.permission}}</div>
+                                        <div class="col"><span style="font-size: 1em; color: red;" (click)=delUser(user)><i
+                                                    class="fa fa-trash"></i></span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <form [formGroup]="toolForm" class="col-7">
+                            <div class="form group border p-3" style="min-height: 198px;">
+                                <label for="tools">
+                                    <h5>Tools</h5>
+                                </label>
+                                <div class="row mx-2">
+                                    <input class="form-control" type="text" formControlName="repo"
+                                            placeholder="Repository link" />
+                                </div>
+                                <div class="row p-2 mt-2">
+                                    <div class="col-6">
+                                        <input class="form-control" type="text" formControlName="repoName"
+                                            placeholder="Repository name" />
+                                    </div>
+                                    <div class="col">
+                                        <span (click)="togglePrivate()">
+                                            <mat-checkbox color="warn" formControlName="private">Private</mat-checkbox>
+                                        </span>
+                                    </div>
+                                    <div class="col">
+                                        <button class="btn btn-outline-primary" (click)="addTool()">Add</button>
+                                    </div>
+                                </div>
+                                <div *ngIf="privateRepo" class="row p-2">
+                                    <div class="col">
+                                        <input class="form-control" type="text" formControlName="login"
+                                            placeholder="Login" />
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control" type="password" formControlName="password"
+                                            placeholder="Password" />
+                                    </div>
+                                </div>
+                                <div class="p-2" *ngFor="let tool of toolList; index as i;">
+                                    <div class="row mr-2 text-center">
+                                        <div class="col">{{i + 1}}</div>
+                                        <div class="col">{{tool.name}}</div>
+                                        <div class="col"><span style="font-size: 1em; color: red;" (click)="delTool(tool)"><i
+                                                    class="fa fa-trash"></i></span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="row">
+                        <form [formGroup]="scanForm" class="col pt-3">
+                            <div class="form-group border p-3">
+                                <label for="tools">
+                                    <h5>Scans</h5>
+                                </label>
+                                <div class="row p-2">
+                                    <div class="col-4">
+                                        <select class="form-control mt-2" formControlName="tool">
+                                            <option value="" disabled selected>Add tool</option>
+                                            <option *ngFor="let tool of toolList">{{tool.name}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 col-sm-3">
+                                        <div class="align-top">
+                                            <mat-form-field>
+                                                <input matInput [matDatepicker]="picker" placeholder="Choose a date"
+                                                    formControlName="date" width="30px">
+                                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <select class="form-control mt-2" formControlName="repeat">
+                                            <option value="0" selected>Never repeat</option>\
+                                            <option value="1">3 minutes</option>
+                                            <option value="2">Daily</option>
+                                            <option value="3">Weekly</option>
+                                            <option value="4">Monthly</option>
+                                        </select>
+                                    </div>
+                                    <div class="col ml-2 mt-2">
+                                        <button class="btn btn-outline-primary" (click)="addScan()">Add</button></div>
+                                </div>
+                                <div class="p-2" *ngFor="let scan of scanList; index as i;">
+                                    <div class="row mx-2 text-center">
+                                        <div class="col-2">{{i + 1}}</div>
+                                        <div class="col-3">{{scan.toolName}}</div>
+                                        <div class="col-6">{{scan.fakeDate}}</div>
+                                        <div class="col-1"><span style="font-size: 1em; color: red;" (click)="delScan(scan)"><i
+                                                    class="fa fa-trash"></i></span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="form-group p-3">
+                        <div class="text-center">
+                            <span (click)="onSubmit(); toggle()"><button type="button" class="btn btn-primary"
+                                    data-toggle="collapse" data-target="#addProject" aria-expanded="false"
+                                    aria-controls="addProject">Confirm</button></span>&nbsp;&nbsp;&nbsp;
+                            <span (click)="toggle()"><button type="button" class="btn btn-outline-danger"
+                                    data-toggle="collapse" data-target="#addProject" aria-expanded="false"
+                                    aria-controls="addProject">Cancel</button></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="container col-11 col-xl-9" [ngStyle]="{'filter': blurValue}">
+        <mat-grid-list [cols]="columns" gutterSize="30px" [rowHeight]="rows" (window:resize)="onResize($event)">
+            <mat-grid-tile>
+                <div class="w-100 h-100 p-2">
+                    <div class="tile item w-100 h-100">
+                        <span (click)="toggle()" data-toggle="collapse" href="#addProject" role="button" role="button"
+                            aria-expanded="false" aria-controls="settings" style="cursor: pointer;">
+                            <div class="row addButton item h-100">
+                                <div class="mx-auto">
+                                    <h4 class="mt-5">Add new project</h4>
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile *ngFor="let project of projects | async; index as idx">
+                <div class="w-100 h-100 p-2">
+                    <div class="tile item w-100 h-100">
+                        <div class="row">
+                            <div class="col-12 icon">&nbsp;
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <h5><b>{{project.name}}</b></h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12" style="text-align: center;"><b>
+                                    <span *ngIf="project.status=='positive'" style="font-size: 1em; color: green">
+                                        <i class="fa fa-check-square"></i>&nbsp;All successful
+                                    </span>
+                                    <span *ngIf="project.status=='negative'" style="font-size: 1em; color: red">
+                                        <i class="fa fa-minus-square"></i>&nbsp;At least one negative
+                                    </span>
+                                    <span *ngIf="project.status=='waiting'" style="font-size: 1em; color: orange">
+                                        <i class="fa fa-pause-circle"></i>&nbsp;At least one waiting
+                                    </span></b>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-1"></div>
+                            <div class="col-10">
+                                <div class="tool-scrollbar">
+                                    <table class="table table-hover table-borderless">
+                                        <tbody *ngFor="let scan of project.scans; index as i;">
+                                            <tr>
+                                                <th scope="row">{{i+1}}</th>
+                                                <td>{{scan.toolName}}</td>
+                                                <td>{{scan.stringDate}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-center align-self-end mt-2">
+                                <span [routerLink]="['/project', project.name]">
+                                    <button type="button" class="btn btn-outline-dark" (click)="set(project)">
+                                        Details&nbsp;<i class="fa fa-chevron-down"></i></button></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </div>
+</div>

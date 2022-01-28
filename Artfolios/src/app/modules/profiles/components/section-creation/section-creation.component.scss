@@ -1,0 +1,22 @@
+.image-placeholder {
+  width: 100%;
+  max-width: 300px;
+  margin: 10px;
+  border: 2px dashed #839FAD;
+  object-fit: contain;
+  min-height: 50px;
+  text-align: center;
+  padding: 0;
+}
+
+.image-placeholder:hover {
+  border-style: solid;
+  cursor: pointer;
+}
+
+.image-placeholder > p {
+  font-size: 18px;
+  margin: 12px auto;
+  height: 26px;
+  font-weight: lighter;
+}

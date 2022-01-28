@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Rate user</h1>
+<div fxLayout="column" fxLayoutAlign="center center" mat-dialog-content>
+  <bar-rating [(rate)]="data.rating" class="p-0 m-0"></bar-rating>
+  <p class="mt-3">Your vote: {{data.rating}}</p>
+</div>
+<div class="mb-1" fxLayout="row" fxLayoutAlign="end stretch" mat-dialog-actions>
+  <button [mat-dialog-close]="data.rating" color="primary" mat-flat-button>Vote</button>
+</div>

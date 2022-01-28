@@ -1,0 +1,57 @@
+<h2 class="login-title">Sign Up</h2>
+<p class="login-title login-subtitle">Already a member? <a routerLink="../login">Sign In</a></p>
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+  <div class="form-group">
+    <label class="m-0 p-0" for="email">Email</label>
+    <input type="text" id="email" class="form-control" formControlName="email"
+           [ngClass]="{ 'is-invalid': submitted && f.email.errors }"/>
+    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+      <div *ngIf="f.email.errors.required">Email is required</div>
+      <div *ngIf="f.email.errors.email || emailError">Email must be a valid email address</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="m-0 p-0" for="password">Password</label>
+    <input (input)="check()" type="password" id="password" class="form-control" formControlName="password"
+           [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>
+    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+      <div *ngIf="f.password.errors.required">Password is required</div>
+      <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="m-0 p-0" for="confirmPassword">Confirm password</label>
+    <input (input)="check()"  type="password" id="confirmPassword" class="form-control" formControlName="confirmPassword"
+           [ngClass]="{ 'is-invalid': submitted && passNotMatch }"/>
+    <div *ngIf="submitted && passNotMatch" class="invalid-feedback">
+      <div>Passwords do not match</div>
+    </div>
+  </div>
+
+  <div class="form-group" fxLayout="row">
+    <button class="btn btn-outline-primary" fxFlex="60" fxFlexOffset="20">Sign Up Now</button>
+  </div>
+
+  <div *ngIf="showErrorMessage" class="alert alert-danger form-group">
+    <p>{{errorMessage}}</p>
+  </div>
+</form>
+
+<div class="divider bg-primary"></div>
+
+<div fxLayout="column" fxLayoutAlign="center center">
+  <button (click)="registerWithGoogle()" class="btn btn-primary btn-lg font-weight-lighter">
+    Continue with Google
+  </button>
+</div>
+
+
+
+
+
+
+
+

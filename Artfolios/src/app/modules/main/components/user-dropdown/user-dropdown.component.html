@@ -1,0 +1,23 @@
+<li class="nav-item dropdown">
+  <a [textContent]="userName" aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle"
+     data-toggle="dropdown" style="cursor: pointer"
+     id="navbarDropdown" role="button">
+  </a>
+  <div aria-labelledby="navbarDropdown" class="dropdown-menu dropdown-menu-lg-right text-center bg-secondary">
+    <ng-container *ngIf="userHasPortfolio; then showPortfolio else createPortfolio"></ng-container>
+    <ng-template #showPortfolio>
+      <button class="btn btn-primary" routerLink="/profile/portfolio/{{userId}}">Show portfolio</button>
+    </ng-template>
+    <ng-template #createPortfolio>
+      <button class="btn btn-primary" routerLink="/profile/portfolio/creation">Add portfolio</button>
+    </ng-template>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item text-light" routerLink="/profile">My profile</a>
+    <a class="dropdown-item text-light" routerLink="/inbox">Messages <span [class.d-none]="(numberOfMessages <= 0)"
+                                                                           [textContent]="numberOfMessages"
+                                                                           class="badge badge-primary"></span></a>
+    <a class="dropdown-item text-light" routerLink="/profile/settings">Settings</a>
+    <div class="dropdown-divider"></div>
+    <a (click)="logout()" class="dropdown-item text-light" style="cursor: pointer">Log out</a>
+  </div>
+</li>

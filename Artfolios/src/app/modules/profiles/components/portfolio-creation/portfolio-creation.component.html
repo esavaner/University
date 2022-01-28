@@ -1,0 +1,84 @@
+<form (keydown.enter)="$event.preventDefault()" (ngSubmit)="savePortfolio()" [formGroup]="form"
+      class="p-3" fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="space-between stretch" id="page-container">
+  <aside fxFlex="18" fxLayout="column" fxLayoutAlign="start stretch" class="p-3">
+    <div class="mb-3 " fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="10px">
+      <button class="btn btn-primary" fxFlex="50" type="submit">Save</button>
+      <button (click)="cancelCreation()" class="btn btn-outline-danger" fxFlex="40">Cancel</button>
+    </div>
+
+    <h2 class="text-muted menu-title m-0">Add profile photo</h2>
+    <img *ngIf="previewUrl" [src]="previewUrl" alt="profile photo preview" id="photo-preview"/>
+    <input #fileInput (change)="uploadPhoto($event)" class="d-none" type="file">
+    <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="15px">
+      <button (click)="$event.preventDefault(); fileInput.click()" class="btn btn-outline-primary" fxFlex>
+        <mat-icon>add_a_photo</mat-icon>
+      </button>
+      <button (click)="deleteProfilePhoto($event)" *ngIf="previewUrl" class="btn btn-outline-danger" fxFlex="50">
+        <mat-icon>delete</mat-icon>
+      </button>
+
+    </div>
+    <p [class.d-block]="fileInput" class="text-center text-muted mt-2 p-0 d-none text-break">
+      {{fileInput.files[0]?.name}}
+    </p>
+
+    <mat-form-field class="field-input">
+      <textarea cols="30" formControlName="biography" matInput placeholder="Write your biography here"
+                maxlength="150" rows="5"></textarea>
+    </mat-form-field>
+
+    <h2 class="text-muted menu-title">Choose theme</h2>
+    <label>Background color
+      <input [(colorPicker)]="backgroundColor" [style.background]="backgroundColor" class="color-pick"/>
+    </label>
+    <label>Font color
+      <input [(colorPicker)]="fontColor" [style.background]="fontColor" class="color-pick"/>
+    </label>
+    <label>Headings color
+      <input [(colorPicker)]="headingsColor" [style.background]="headingsColor" class="color-pick"/>
+    </label>
+
+    <mat-form-field>
+      <mat-select formControlName="professions" maxlength="5" multiple placeholder="Profession">
+        <ng-container *ngIf="professionPipe | async as list">
+          <mat-option *ngFor="let profession of list" [value]="profession.name">
+            {{profession.name}}
+          </mat-option>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
+
+    <h2 class="text-muted menu-title">Manage title list</h2>
+    <div formArrayName="sections" id="sections-titles">
+      <div cdkDropList class="dropList" (cdkDropListDropped)="drop($event)">
+        <div *ngFor="let section of sections.controls" cdkDrag class="dropBox">
+          <div [formGroup]="section" class="section-title" fxLayout="row" fxLayoutAlign="space-between stretch">
+            <h3 class="text-break text-wrap">{{section.get("titleValue").value}}</h3>
+            <mat-icon (click)="section.get('titleHide').setValue(true)" *ngIf="!section.get('titleHide').value"
+                      class="text-primary">visibility
+            </mat-icon>
+            <mat-icon (click)="section.get('titleHide').setValue(false)" *ngIf="section.get('titleHide').value"
+                      class="text-muted">visibility_off
+            </mat-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <div fxFlex="77" fxFlexOffset.gt-sm="5"
+       fxLayout="column"
+       fxLayoutAlign="start stretch" id="sections">
+    <section-add-button [parentArrayForm]="sections"></section-add-button>
+    <div formArrayName="sections">
+      <div *ngFor="let section of sections.controls; let i = index" class="section">
+        <div class="manage-icons">
+          <mat-icon (click)="editSection(section, i)">edit</mat-icon>
+          <mat-icon (click)="deleteSection(i)">delete</mat-icon>
+        </div>
+        <section-show [parentForm]="section"></section-show>
+      </div>
+    </div>
+  </div>
+
+</form>

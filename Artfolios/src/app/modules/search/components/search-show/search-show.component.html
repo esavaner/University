@@ -1,0 +1,36 @@
+<div class="container p-1">
+    <div class="rounded border col-lg-10 mx-auto" style="background: #ecf2f9;">
+        <div class="row p-2">
+            <div class="col-6 col-md-3 col-lg-3">
+                <img src="{{portfolioData.profileImage ? portfolioData.profileImage  : 'https://zcoin.io/storage/2017/01/blank-avatar-300x300.png'}}"
+                    class="profileimg">
+            </div>
+            <div class="col-12 col-md-7 col-lg-7 order-12 order-md-1">
+                <div class="row">
+                    <h4 class="flname">{{portfolioData.name}}</h4>
+                </div>
+                <div class="row">
+                    <span class="location">{{portfolioData.location}}</span>
+                </div>
+                <div class="row">
+                    <div class="desc">{{portfolioData.biography}}</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-2 col-lg-2 order-1 order-md-12">
+                <div class="h-100">
+                    <div class="row rate justify-content-center">
+                        <app-ratebar [disabled]="true" [idUser]="portfolioId"></app-ratebar>
+                    </div>
+                    <div class="row tags justify-content-center align-items-center">
+                        <div *ngFor="let profession of portfolioData.professions">
+                            {{profession}},&nbsp;
+                        </div>
+                    </div>
+                    <div class="row view justify-content-center">
+                        <button type="button" class="btn btn-primary" (click)="showPortfolio()">View Profile</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

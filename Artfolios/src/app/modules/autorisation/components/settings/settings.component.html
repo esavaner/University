@@ -1,0 +1,231 @@
+<h1 class="login-title m-3">Settings</h1>
+<mat-accordion class="my-5" fxLayout="column" fxLayoutAlign="center center">
+  <mat-expansion-panel class=" w-75">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Display name
+      </mat-panel-title>
+      <mat-panel-description>
+        {{currentName}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-form-field appearance="standard">
+      <input [formControl]="name" #nameinput matInput placeholder="Enter new name">
+      <mat-error *ngIf="name.invalid">{{getErrorMessage(name)}}</mat-error>
+    </mat-form-field>
+
+    <div fxLayoutAlign="start top">
+      <button class="btn btn-outline-primary" (click)="changeDisplayName(nameinput.value)">Change</button>
+    </div>
+  </mat-expansion-panel>
+  <mat-expansion-panel class="w-75">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Email
+      </mat-panel-title>
+      <mat-panel-description>
+        {{currentEmail}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-form-field appearance="standard">
+      <input [formControl]="email" autocomplete="true" #emailinput matInput type="email"
+             placeholder="Enter new email">
+      <mat-error *ngIf="email.invalid">{{getErrorMessage(email)}}</mat-error>
+    </mat-form-field>
+
+    <div fxLayoutAlign="start center">
+      <button class="btn btn-outline-primary" (click)="verifyForEmail(emailinput.value)">Change</button>
+    </div>
+
+  </mat-expansion-panel>
+  <mat-expansion-panel class="w-75">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Personal Data
+      </mat-panel-title>
+      <mat-panel-description>
+        Manage your personal information
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Real Name
+        </mat-panel-title>
+        <mat-panel-description>
+          {{realName}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <mat-form-field appearance="standard">
+        <input #firstNameInput matInput placeholder="First name">
+      </mat-form-field>
+
+      <mat-form-field appearance="standard">
+        <input #lastNameInput matInput placeholder="Last name">
+      </mat-form-field>
+
+      <div fxLayoutAlign="start top">
+        <button class="btn btn-outline-primary" (click)="changeRealName(firstNameInput.value, lastNameInput.value)">
+          Change
+        </button>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Gender
+        </mat-panel-title>
+        <mat-panel-description>
+          {{gender}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <mat-form-field>
+        <mat-label>Select an option</mat-label>
+        <mat-select [(value)]="selected">
+          <mat-option>None</mat-option>
+          <mat-option value="Man">Man</mat-option>
+          <mat-option value="Woman">Woman</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div fxLayoutAlign="start center">
+        <button class="btn btn-outline-primary" (click)="changeGender(selected)">Change</button>
+      </div>
+
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Date of Birth
+        </mat-panel-title>
+        <mat-panel-description>
+          {{dateOfBirth}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <mat-form-field>
+        <input matInput #dateInput [matDatepicker]="picker" placeholder="Choose a date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+
+      <div fxLayoutAlign="start top">
+        <button class="btn btn-outline-primary" (click)="changeDateOfBirth(dateInput.value)">Change</button>
+      </div>
+    </mat-expansion-panel>
+
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Address
+        </mat-panel-title>
+        <mat-panel-description>
+          {{address}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <div fxLayout="column">
+        <mat-form-field class="w-50" appearance="standard">
+          <input #streetInput matInput="address" placeholder="Street">
+        </mat-form-field>
+        <div class="w-50">
+          <mat-form-field class="w-25" appearance="standard">
+            <input #postCodeInput [formControl]="postCode" matInput="address" placeholder="Postal code">
+            <mat-error *ngIf="postCode.invalid">{{getErrorMessage(postCode)}}</mat-error>
+          </mat-form-field>
+          <mat-form-field class="w-75 pl-2" appearance="standard">
+            <mat-select #cityInput disableOptionCentering placeholder="City">
+              <ng-container *ngIf="locationList | async as list">
+                <mat-option *ngFor="let city of list" [value]="city.name">
+                  {{city.name}}
+                </mat-option>
+              </ng-container>
+          </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+
+      <button class="btn btn-outline-primary"
+              (click)="changeAddress(streetInput.value, postCodeInput.value, cityInput.value)">Change
+      </button>
+
+
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Phone Number
+        </mat-panel-title>
+        <mat-panel-description>
+          {{currentPhone}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <div fxLayout="row">
+        <mat-form-field appearance="standard">
+          <input [formControl]="phone" autocomplete="true" #phoneinput matInput type="email"
+                 placeholder="Enter phone number">
+          <mat-error *ngIf="phone.invalid">{{getErrorMessage(phone)}}</mat-error>
+        </mat-form-field>
+        <div class="container" id="recaptcha-container"></div>
+      </div>
+      <div fxLayoutAlign="start top">
+        <button class="btn btn-outline-primary" (click)="changePhone(phoneinput.value)">Change</button>
+      </div>
+    </mat-expansion-panel>
+
+
+  </mat-expansion-panel>
+
+  <mat-expansion-panel class="w-75">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Password
+      </mat-panel-title>
+      <mat-panel-description>
+        Change your password
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-form-field>
+      <input [formControl]="password" #passwordinput matInput type="password" placeholder="Enter new password">
+      <mat-error *ngIf="password.invalid || passwordWeak">{{getErrorMessage(password)}}</mat-error>
+    </mat-form-field>
+
+    <div fxLayoutAlign="start top">
+      <button class="btn btn-outline-primary" (click)="verifyForPassword(passwordinput.value)">Change</button>
+    </div>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel *ngIf="userHasPortfolio" class="w-75">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Account Privacy
+      </mat-panel-title>
+      <mat-panel-description>
+        {{privacyStatusText}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div fxLayout="row" fxFlex="15" fxLayoutAlign="space-between center">
+      Public
+      <mat-slide-toggle
+        class="example-margin"
+        [checked]="privacyStatus"
+        (change)="changePrivacy($event)">
+      </mat-slide-toggle>
+      Private
+    </div>
+
+  </mat-expansion-panel>
+  <button class="btn btn-outline-primary btn-lg m-5" routerLink="/profile">
+    <mat-icon [inline]="true">keyboard_backspace</mat-icon>
+    Go back to your profile
+  </button>
+</mat-accordion>

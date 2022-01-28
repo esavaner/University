@@ -1,0 +1,55 @@
+#user-card {
+  width: 90vw;
+  margin: 30px auto;
+  background-color: rgba(9, 160, 222, .07);
+  border-radius: 10px;
+  border: 1px solid rgba(9, 160, 222, .7);
+  min-height: 150px;
+  padding: 5px;
+  position: relative;
+}
+
+#user-photo > div {
+  position: relative;
+}
+
+#user-photo > div > img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+
+#user-data-1 {
+  text-align: center;
+}
+
+#user-data-1 > h1 {
+  font-weight: lighter;
+  font-size: 240%;
+}
+
+#user-data-1 > p {
+  font-weight: bold;
+  opacity: .8;
+  margin: 2px;
+}
+
+
+#private-icon {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+
+@media (min-width: 960px) {
+  #user-card {
+    padding: 30px;
+  }
+
+  #user-data-1 {
+    text-align: left;
+  }
+}

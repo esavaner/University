@@ -1,0 +1,4 @@
+<div class="m-1 p-2" fxLayout="row" fxLayoutAlign="center stretch">
+  <bar-rating [(rate)]="ratingModel.rating" [readOnly]="true" [title]="ratingModel.rating"></bar-rating>
+  <button (click)="openRatingDialog()" *ngIf="canVote()" class="ml-3" mat-button>Vote</button>
+</div>

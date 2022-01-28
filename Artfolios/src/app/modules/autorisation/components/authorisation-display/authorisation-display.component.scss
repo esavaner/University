@@ -1,0 +1,64 @@
+#login-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 2000;
+  background-color: #fff;
+  background-image: url("../../../../../assets/bg_img.png");
+  padding: 10px 20px;
+}
+
+#login-box {
+  max-width: 350px;
+  width: 90vw;
+  padding: 50px 30px;
+  margin: 40px;
+}
+
+#login-info {
+  font-size: 80%;
+  padding: 5px;
+}
+
+.login-title {
+  font-size: 300%;
+  text-align: center;
+  font-weight: lighter;
+}
+
+.login-subtitle {
+  font-size: 130%;
+}
+
+.divider {
+  width: 80%;
+  height: 1px;
+  margin: 30px 10%;
+}
+
+@media (min-width: 768px) {
+  #login-screen {
+    padding: 110px;
+  }
+
+  #login-box {
+    margin: 0;
+    padding: 0;
+  }
+
+  #login-info {
+    font-size: 100%;
+    padding: 50px;
+    max-width: 800px;
+  }
+
+  .login-title {
+    font-size: 350%;
+  }
+
+  .login-subtitle {
+    font-size: 150%;
+  }
+}

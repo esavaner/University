@@ -1,0 +1,87 @@
+:host {
+  z-index: 1999;
+}
+
+footer {
+  font-size: 85%;
+}
+
+#footer-middle,
+#footer-bottom {
+  padding: 20px;
+}
+
+
+footer ul {
+  padding-left: 0;
+  list-style: none;
+}
+
+.widget {
+  padding: 20px;
+  margin-bottom: 40px;
+}
+
+.widget.widget-last {
+  margin-bottom: 0;
+}
+
+.widget.no-box {
+  margin-bottom: 20px;
+}
+
+.widget.subscribe p {
+  margin-bottom: 18px;
+}
+
+.widget li a:hover {
+  text-decoration: none;
+  color: #fff;
+}
+
+h5.widget-title {
+  margin-bottom: 20px;
+  font-size: 120%;
+}
+
+.widget-title span {
+  background: #839FAD none repeat scroll 0 0;
+  display: block;
+  height: 1px;
+  margin-top: 10px;
+  position: relative;
+  width: 20%;
+}
+
+.widget-title span::after {
+  background: inherit;
+  content: "";
+  height: inherit;
+  position: absolute;
+  top: -4px;
+  width: 50%;
+}
+
+.widget-title.text-center span, .widget-title.text-center span::after {
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+}
+
+ul.social-footer2 {
+  width: auto;
+}
+
+ul.social-footer2 li {
+  display: inline-block;
+  margin: 5px;
+}
+
+ul.social-footer2 li a {
+  display: block;
+  height: 30px;
+  width: 30px;
+  text-align: center;
+}
+

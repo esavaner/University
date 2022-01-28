@@ -1,0 +1,38 @@
+.tool-scrollbar {
+    height: 100px;
+    overflow: auto;
+    display: block;
+ }
+
+ .details-scrollbar {
+    max-height: 700px;
+    overflow: auto;
+ }
+
+ .tile:hover {
+    position: relative;
+    bottom: 0.3em;
+    box-shadow: 0 1px 12px rgb(214, 214, 214);
+ }
+ 
+ .tile {
+    box-shadow: 0 0 5px rgb(214, 214, 214);
+ }
+
+.icon {
+    font-size: 1.5em;
+    text-align: end;
+}
+
+.addButton:hover {
+  background: hsl(199, 80%, 76%);
+  box-shadow: 0 1px 12px rgb(214, 214, 214);
+}
+
+.addButton {
+  box-shadow: 0 0 5px rgb(214, 214, 214);
+}
+
+.addHeader {
+  background: hsl(199, 80%, 76%);
+}

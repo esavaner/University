@@ -1,0 +1,112 @@
+#bio-photo {
+  border-radius: 50%;
+  margin: 30px auto 5px;
+  object-fit: cover;
+  min-width: 15vw !important;
+  min-height: 15vw !important;
+  max-width: 200px !important;
+  max-height: 200px !important;
+}
+
+#bio-text {
+  text-align: center;
+  font-size: 16px;
+  font-weight: lighter;
+  padding: 5px 10px;
+  line-height: 15px;
+}
+
+#bio-name {
+  text-align: center;
+  font-size: 175%;
+  font-weight: lighter;
+  margin: 10px 5px 5px;
+  letter-spacing: -1px;
+}
+
+.section-title {
+  text-align: center;
+  text-transform: capitalize;
+  font-variant: small-caps;
+  font-weight: lighter;
+  min-height: 35px;
+  padding: 0;
+  width: 90%;
+  margin: auto;
+  border-top: 1px solid #999;
+  transition-duration: 300ms;
+  font-size: 18px;
+  line-height: 38px;
+}
+
+.section-title:hover {
+  cursor: pointer;
+  font-weight: bolder;
+}
+
+.first-item {
+  border-top: none;
+}
+
+.side {
+  z-index: auto;
+}
+
+#admin-panel {
+  position: fixed;
+  top: 70px;
+  right: 20px;
+  //border: 1px solid #eaeaea;
+  border-radius: 5%;
+  padding: 7px 10px;
+  opacity: 0.7;
+  background-color: rgba(255, 255, 255, .1);
+}
+
+#admin-panel > button {
+  opacity: 0.2;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  font-size: 24px;
+}
+
+#admin-panel > button:hover {
+  opacity: 0.7;
+}
+
+#bio-profs {
+  background-color: rgba(255, 255, 255, .1);
+  padding: 5px;
+  width: 90%;
+  margin: 10px auto;
+  text-transform: lowercase;
+  font-weight: 500;
+  text-align: center;
+  word-break: break-word;
+}
+
+#bio-profs > p {
+  display: inline;
+  padding: 5px 3px;
+}
+
+@media (min-width: 960px) {
+  #page-container {
+    position: relative;
+    display: block;
+  }
+
+  aside {
+    position: fixed;
+    top: 5vh;
+    left: 0;
+    max-height: 95vh;
+    overflow-y: auto;
+  }
+
+  #sections {
+    margin-left: 20vw !important;
+  }
+}

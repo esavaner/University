@@ -1,0 +1,36 @@
+<div fxLayout="column"
+     id="login-box">
+  <mat-icon (click)="dismiss()" aria-hidden="false" aria-label="Example home icon" style="cursor: pointer">
+    close
+  </mat-icon>
+  <div class="reAuth-container">
+
+    <h1 class="login-title">Confirm password</h1>
+
+    <p class="login-title login-subtitle">{{authService.currentUserEmail}}</p>
+
+    <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+
+      <div class="form-group">
+        <label class="m-0 p-0" for="password">Password</label>
+        <input [ngClass]="{ 'is-invalid': submitted && f.password.errors }" class="form-control"
+               formControlName="password" id="password"
+               placeholder="Enter your password"
+               type="password"/>
+        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+          <div *ngIf="f.password.errors.required">Password is required</div>
+        </div>
+      </div>
+
+    </form>
+
+    <div class="form-group" fxLayout="row" fxLayoutAlign="space-between center">
+      <button (click)="onSubmit()" class="btn btn-outline-primary" fxFlex="45">Confirm</button>
+      <button (click)="loginWithGoogle()" class="btn btn-primary" fxFlex="45">Confirm with Google</button>
+    </div>
+    <div *ngIf="showErrorMessage" class="alert alert-danger form-group">
+      <p>{{errorMessage}}</p>
+    </div>
+  </div>
+</div>
+

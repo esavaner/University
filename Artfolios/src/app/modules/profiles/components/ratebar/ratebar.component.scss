@@ -1,0 +1,17 @@
+::ng-deep bar-rating .br {
+  margin: 0 !important;
+  padding: 0;
+}
+
+::ng-deep bar-rating .br-units {
+  position: relative !important;
+}
+
+::ng-deep bar-rating .br-default .br-selected::after,
+::ng-deep bar-rating .br-default .br-unit::after {
+  font-size: 30px;
+  position: absolute !important;
+  top: 0 !important;
+  height: 30px !important;
+  line-height: 27px !important;
+}

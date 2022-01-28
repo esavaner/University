@@ -1,0 +1,143 @@
+<div class="project min-vh-100">
+    <div class="sticky">
+        <app-navbar></app-navbar>
+    </div>
+    <div style="height: 30px;"></div>
+        <div *ngIf="negativeList[0]" class="col-lg-12 col-md-10 col-xl-8 mx-auto mb-5">
+            <table class="table table-hover">
+                <thead class="negative">
+                    <tr>
+                        <th style="width: 7%">#</th>
+                        <th style="width: 12%">Tool</th>
+                        <th style="width: 17%">Project</th>
+                        <th style="width: 22%">Scan date</th>
+                        <th style="width: 23%">Status</th>
+                        <th style="width: 19%">Log</th>
+                    </tr>
+                </thead>
+                <tbody class="item">
+                    <tr *ngFor="let scan of negativeList; index as i;">
+                        <td style="width: 7%">{{i+1}}</td>
+                        <td style="width: 12%">{{scan.toolName}}</td>
+                        <td style="width: 17%">{{scan.projectName}}</td>
+                        <td style="width: 22%">{{scan.stringDate}}</td>
+                        <td style="width: 23%">
+                            <span style="font-size: 1em; color: red">
+                                <i class="fa fa-minus-square"></i>&nbsp;Failed
+                            </span>
+                        <td style="width: 19%">
+                            <span *ngIf="scan.log" (click)="setLog(scan.log)"><button type="button" class="btn-sm btn-outline-secondary" data-toggle="modal"
+                                data-target="#exampleModal">Log</button></span>
+                            <span *ngIf="!scan.log"><button disabled type="button" class="btn-sm btn-outline-secondary" data-toggle="modal"
+                                data-target="#exampleModal">No Log</button></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="positiveList[0]" class="col-lg-12 col-md-10 col-xl-8 mx-auto mb-5">
+            <table class="table table-hover">
+                <thead class="positive">
+                    <tr>
+                        <th style="width: 7%">#</th>
+                        <th style="width: 12%">Tool</th>
+                        <th style="width: 17%">Project</th>
+                        <th style="width: 22%">Scan date</th>
+                        <th style="width: 23%">Status</th>
+                        <th style="width: 19%">Log</th>
+                    </tr>
+                </thead>
+                <tbody class="item">
+                    <tr *ngFor="let scan of positiveList; index as i;">
+                        <td style="width: 7%">{{i+1}}</td>
+                        <td style="width: 12%">{{scan.toolName}}</td>
+                        <td style="width: 17%">{{scan.projectName}}</td>
+                        <td style="width: 22%">{{scan.stringDate}}</td>
+                        <td style="width: 23%">
+                            <span style="font-size: 1em; color: green">
+                                <i class="fa fa-check-square"></i>&nbsp;Successful
+                            </span>
+                        <td style="width: 19%">
+                            <span *ngIf="scan.log" (click)="setLog(scan.log)"><button type="button" class="btn-sm btn-outline-secondary" data-toggle="modal"
+                                data-target="#exampleModal">Log</button></span>
+                            <span *ngIf="!scan.log"><button disabled type="button" class="btn-sm btn-outline-secondary" data-toggle="modal"
+                                data-target="#exampleModal">No Log</button></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="waitingList[0]" class="col-lg-12 col-md-10 col-xl-8 mx-auto">
+            <table class="table table-hover">
+                <thead class="waiting">
+                    <tr>
+                        <th style="width: 7%">#</th>
+                        <th style="width: 12%">Tool</th>
+                        <th style="width: 17%">Project</th>
+                        <th style="width: 22%">Scan date</th>
+                        <th style="width: 23%">Status</th>
+                        <th style="width: 19%">Log</th>
+                    </tr>
+                </thead>
+                <tbody class="item">
+                    <tr *ngFor="let scan of waitingList; index as i;">
+                        <td style="width: 7%">{{i+1}}</td>
+                        <td style="width: 12%">{{scan.toolName}}</td>
+                        <td style="width: 17%">{{scan.projectName}}</td>
+                        <td style="width: 22%">{{scan.stringDate}}</td>
+                        <td style="width: 23%">
+                            <span style="font-size: 1em; color: orange">
+                                <i class="fa fa-pause-circle"></i>&nbsp;Waiting
+                            </span></td>
+                        <td style="width: 19%">
+                            <span *ngIf="scan.log" (click)="setLog(scan.log)"><button type="button" class="btn-sm btn-outline-secondary" data-toggle="modal"
+                                data-target="#exampleModal">Log</button></span>
+                            <span *ngIf="!scan.log"><button disabled type="button" class="btn-sm btn-outline-secondary" data-toggle="modal"
+                                data-target="#exampleModal">No Log</button></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Scan results</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div *ngIf="log" class="modal-body">
+                <h4>Target: <strong>{{log.Target}}</strong></h4>
+                <table class="table-hover w-100">
+                    <thead>
+                        <tr>
+                            <td>#</td>
+                            <td>Vulnerability ID</td>
+                            <td>Name</td>
+                            <td>Installed Version</td>
+                            <td>Fixed Version</td>
+                            <td>Severity</td>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let item of log.Vulnerabilities; index as i;">
+                        <tr>
+                            <td>{{i+1}}</td>
+                            <td>{{item.VulnerabilityID}}</td>
+                            <td>{{item.PkgName}}</td>
+                            <td>{{item.InstalledVersion}}</td>
+                            <td>{{item.FixedVersion}}</td>
+                            <td>{{item.Severity}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+

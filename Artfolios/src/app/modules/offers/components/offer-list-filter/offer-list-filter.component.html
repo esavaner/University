@@ -1,0 +1,7 @@
+<h4 *ngIf="activeOffers" class="list-title text-primary">Active offers</h4>
+<offer-show *ngFor="let offerId of offerIds" [offerId]="offerId"></offer-show>
+<h4 *ngIf="inactiveOffers" class="list-title text-black-50">Inactive offers</h4>
+<offer-show *ngFor="let offerId of offerIdsInactive" [offerId]="offerId"></offer-show>
+<div *ngIf="!inactiveOffers && !activeOffers" fxLayout="column" fxLayoutAlign="start center">
+  <mat-spinner [diameter]="50"></mat-spinner>
+</div>

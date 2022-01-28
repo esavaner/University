@@ -1,0 +1,11 @@
+.selected {
+  border: 1.5px solid rgba(0, 0, 0, .3);
+  border-radius: 2%;
+}
+
+.section-template {
+  max-height: 120px;
+  object-fit: contain;
+  padding: 5px;
+  margin: 2px auto;
+}

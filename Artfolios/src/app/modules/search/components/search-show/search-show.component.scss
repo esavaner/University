@@ -1,0 +1,23 @@
+.profileimg {
+    border-radius: 50%;
+    height: 120px;
+    width: 120px;
+    object-fit: cover;
+    margin: auto;
+    display:block;
+}
+
+.location {
+    font-size: 90%;
+    color: rgb(134, 130, 130);
+}
+
+.desc {
+    overflow: hidden;
+    height: 75px;
+}
+
+.tags {
+    overflow: hidden;
+    height: 52px;
+}

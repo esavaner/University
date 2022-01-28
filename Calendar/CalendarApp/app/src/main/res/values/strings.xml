@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">CalendarApp</string>
+    <string name="title">Nazwa wydarzenia</string>
+    <string name="event">Wydarzenie</string>
+    <string name="countdown">Odliczanie</string>
+    <string name="localization">Lokalizacja</string>
+    <string name="description">Opis</string>
+    <string name="repetition">Powtarzanie</string>
+    <string name="date">Data</string>
+    <string name="todo">TODO</string>
+    <string name="new_event">Nowe wydarzenie</string>
+    <string-array name="spinner_list">
+        <item> Jednorazowo </item>
+        <item> Codziennie </item>
+        <item> Co tydzien </item>
+        <item> Co miesiac </item>
+        <item> Co rok </item>
+    </string-array>
+    <string-array name="spinner_list2">
+        <item> Dzien wczesniej </item>
+        <item> Trzy dni przed </item>
+        <item> Tydzien przed </item>
+    </string-array>
+</resources>

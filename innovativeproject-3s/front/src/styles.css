@@ -1,0 +1,77 @@
+
+#cover {
+    background: #3366cc url("src/assets/backgroud.jpg") center center no-repeat;
+    background-size: cover;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    font-size: 120%;
+}
+
+.loginWindow:before {
+    content: '';
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: -1;
+}
+
+.login {
+    font-family: "Lucida Grande", sans-serif;
+    text-align: center;
+    font-size: 230%;
+    padding-bottom: 30px;
+}
+
+.error {
+    padding-left: 5px;
+    color: red;
+}
+
+.item {
+    background: white;
+}
+
+.tool-scrollbar {
+    height: 100px;
+    overflow: auto;
+    display: block;
+ }
+
+.project {
+    background: #ececec;
+    height: 100%;
+    overflow: auto;
+}
+
+.sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    height: 8vh;
+    z-index: 1;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+  
+::-webkit-scrollbar-track {
+    background: #ebebeb;
+}
+  
+::-webkit-scrollbar-thumb {
+    background: rgb(168, 168, 168);
+}
+  
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

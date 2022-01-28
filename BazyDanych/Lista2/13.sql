@@ -1,0 +1,6 @@
+DROP TRIGGER del_film;
+
+DELIMITER //
+CREATE TRIGGER del_film AFTER DELETE ON filmy FOR EACH ROW BEGIN
+	DELETE FROM zagrali WHERE film_id = OLD.film_id;
+END//

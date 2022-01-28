@@ -1,0 +1,51 @@
+<header class="photo-background bg-primary p-2" ngClass.gt-sm="p-4" fxLayout="column" fxLayoutAlign="center center">
+  <h1 class="m-2 mb-0">Show yourself to the World</h1>
+  <h5 class="m-2 mt-0">We know you're awesome, you know you're awesome, now it's time for the whole world to know!<br>Create
+    your very
+    own portfolio and let others find you.</h5>
+  <button class="btn btn-outline-dark btn-lg" routerLink="/profile/portfolio/creation">START NOW</button>
+</header>
+<section class="home-section bg-dark text-light p-2"
+         id="section-1" fxLayout="column" fxLayoutAlign="center center">
+  <h2>Here comes personalized portfolio</h2>
+  <h5 class="m-2 mb-5">Keep all of your achievements in one place.<br>All of your photos, music, poems or art of any
+    kind put together to create a great summary of your work.</h5>
+  <div fxLayout.gt-sm="row" fxLayout.lt-md="column" fxLayoutAlign="space-around center" fxLayoutGap.lt-md="30px">
+    <img alt="portfolio_example_1" fxFlex.gt-sm="30" src="../../../../../assets/sq_1.jpg">
+    <img alt="portfolio_example_2" fxFlex.gt-sm="30" src="../../../../../assets/sq_2.jpg">
+    <img alt="portfolio_example_3" fxFlex.gt-sm="30" src="../../../../../assets/sq_3.jpg">
+  </div>
+</section>
+<section class="home-section" fxLayout.gt-sm="row" fxLayout.lt-md="column" fxLayoutAlign.lt-md="space-evenly center"
+         fxLayoutGap.lt-md="25px" id="section-2">
+  <div fxFlex.gt-sm="50" fxLayout="column" fxLayoutAlign="center center" class="p-4">
+    <h2 class="mt-5 mt-md-0">Too much free time?</h2>
+    <h5>Check if there is something for you in our <span class="font-weight-bold">offer wall</span>.<br>Maybe someone is
+      looking exactly for you?</h5>
+    <button class="btn btn-outline-primary btn-lg m-3" routerLink="/offers">See offers</button>
+  </div>
+  <div id="div-bg" fxFlex="50" class="mb-5 mb-md-0"></div>
+  <!--  <img alt="offer_wall" class="mb-5 mb-md-0" fxFlex.gt-sm="50" src="">-->
+</section>
+<section class="home-section bg-dark text-light p-2" fxLayout="column" fxLayoutAlign="center center"
+         id="section-3">
+  <h2 class="mt-5">Look for someone special</h2>
+  <h5>Our search will help you find amazing artists, who spend days and nights to create remarkably
+    incredible pieces of art.</h5>
+  <p class="w-75 mb-5">
+    <mat-form-field [formGroup]="searchGroup" appearance="standard" class="w-100">
+      <mat-label>Search</mat-label>
+      <input (keyup.enter)="redirectToSearch()" formControlName="searchInput" matInput
+             placeholder="singer, photographer, DJ maybe?">
+      <mat-icon (click)="redirectToSearch()" matSuffix>search</mat-icon>
+    </mat-form-field>
+  </p>
+</section>
+<section class="photo-background home-section text-dark hide bg-primary p-3" fxLayout="column"
+         fxLayoutAlign="center center"
+         id="section-4">
+  <h2>Be part of something phenomenal</h2>
+  <h5>Join our community and create your one and only artistic portfolio. Show the world who you are and how much you've
+    got to offer.</h5>
+  <h3>Don't be shy, we're waiting just for you!</h3>
+</section>

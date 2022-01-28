@@ -1,0 +1,63 @@
+<div class="project min-vh-100">
+    <div class="sticky">
+        <app-navbar></app-navbar>
+    </div>
+    <div class="container col-lg-6 p-2">
+        <div class="rounded border item">
+            <form id="userForm" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+                <div class="row p-2">
+                    <div class="col-lg-9 justify-content-left pt-2">
+                        <h5>Add user, using email and temporary password</h5>
+                    </div>
+                    <div class="col-lg-3 form-group pt-2">
+                        <button [disabled]="loading" class="btn btn-primary float-right">
+                            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>Add user</button>
+                    </div>
+                </div>
+                <div class="row p-2">
+                    <div class="col-lg-5 form-group">
+                        <input class="rounded form-control w-100" type="search" placeholder=" Email"
+                            formControlName="email">
+                        <div class="error" *ngIf="email.invalid && (email.dirty || email.touched)">
+                            <div *ngIf="email.errors.required">Email is required</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 form-group">
+                        <input class="rounded form-control w-100" type="password" placeholder=" Password"
+                            formControlName="password" autocomplete="new-password">
+                        <div class="error" *ngIf="password.invalid && (password.dirty || password.touched)">
+                            <div *ngIf="password.errors.required">Password is required</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 form-group">
+                        <select data-style="bg-white shadow-sm" class="form-control" formControlName="type">
+                            <option>User</option>
+                            <option>Admin</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div style="height: 10px;"></div>
+        <table class="table table-hover">
+            <thead class="item">
+                <tr>
+                    <th>#</th>
+                    <th>Email</th>
+                    <th>Created</th>
+                    <th>Permissions</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody class="item">
+                <tr *ngFor="let user of userList | async; index as i">
+                    <td>{{i + 1}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.created}}</td>
+                    <td>{{user.permission}}</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

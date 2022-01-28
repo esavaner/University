@@ -1,0 +1,1 @@
+part xs = [(take n xs) : (part n (drop n xs)) | n <- xs]

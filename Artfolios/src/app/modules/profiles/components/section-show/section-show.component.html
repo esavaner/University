@@ -1,0 +1,27 @@
+<ng-container *ngIf="parentForm">
+  <div class="section-card" fxLayout="column" fxLayoutAlign="space-between stretch">
+    <h1 [ngStyle]="{color: headingColor}" class="text-break text-wrap">{{title.value}}</h1>
+    <div class="p-3 pt-1 pb-0" fxLayout="column" fxLayout.gt-sm="row wrap" fxLayoutAlign="center stretch"
+         fxLayoutAlign.gt-sm="space-between stretch">
+      <div *ngFor="let field of fields.controls" [ngSwitch]="field.get('type').value"
+           fxFlex="{{field.get('width').value}}" fxFlexOffset.gt-sm="{{field.get('offset').value}}"
+           fxFlexOrder="{{field.get('order').value}}">
+
+        <ng-container *ngSwitchCase="typeOfField.SIMPLETEXT">
+          <p class="text-justify m-0 {{field.get('class').value}}"
+             style="{{field.get('style').value}}">{{field.get('value').value}}</p>
+        </ng-container>
+        <ng-container *ngSwitchCase="typeOfField.IMAGE">
+          <img alt="section_image" class="w-100 {{field.get('class').value}}" src="{{field.get('value').value}}"
+               ngClass.lt-md="m-2"
+               style="{{field.get('style').value}}">
+        </ng-container>
+        <ng-container *ngSwitchCase="typeOfField.YTLINK">
+          <p>Video will be available soon!</p>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+</ng-container>
+

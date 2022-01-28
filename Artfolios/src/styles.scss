@@ -1,0 +1,40 @@
+@import '~bootstrap/dist/css/bootstrap.css';
+
+@import '~ngx-bar-rating/themes/br-default-theme.css';
+
+$primary: #09a0de;
+@import "user-custom";
+@import '../node_modules/bootstrap/scss/bootstrap';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Roboto, sans-serif;
+}
+
+
+.re-auth-popup .mat-dialog-container {
+  background-image: url("assets/bg_img.png");
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+  border-radius: 2px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #cccccc;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #839FAD;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: $primary;
+}

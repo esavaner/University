@@ -1,0 +1,45 @@
+<mat-dialog-title *ngIf="data.editable">
+  <h3 class="text-primary">Section Edit</h3>
+</mat-dialog-title>
+<mat-dialog-content>
+  <ng-container *ngIf="template">
+    <form (keydown.enter)="$event.preventDefault()" [formGroup]="template" class="p-2">
+      <mat-form-field class="w-100">
+        <input formControlName="titleValue" matInput placeholder="Your section title">
+      </mat-form-field>
+      <div class="w-100" formArrayName="fields">
+        <div *ngFor="let field of fields.controls">
+          <div [formGroup]="field" [ngSwitch]="field.get('type').value">
+
+            <ng-container *ngSwitchCase="typeOfField.SIMPLETEXT">
+              <mat-form-field class="w-100">
+                <textarea formControlName="value" matInput placeholder="Lorem ipsum dolor sit amet...."
+                  rows="5"></textarea>
+              </mat-form-field>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="typeOfField.IMAGE">
+              <div (click)="fileInput.click()" class="image-placeholder">
+                <img *ngIf="field.get('value').value" [src]="field.get('value').value"
+                  [title]="fileInput.files[0]?.name" class="w-100" />
+                <p *ngIf="!field.get('value').value" class="text-muted">Add photo</p>
+              </div>
+              <input class="d-none" type="file" (change)="fileProgress($event, field)" #fileInput>
+            </ng-container>
+            <ng-container *ngSwitchCase="typeOfField.YTLINK">
+              <p>Video will be available soon!</p>
+              <mat-form-field>
+                <input matInput formControlName="value" placeholder="YT link">
+              </mat-form-field>
+            </ng-container>
+
+          </div>
+        </div>
+      </div>
+    </form>
+  </ng-container>
+</mat-dialog-content>
+<mat-dialog-actions *ngIf="data.editable">
+  <button color="primary" mat-stroked-button (click)="abort()">Cancel</button>
+  <button (click)="saveSection()" color="primary" mat-flat-button>Save</button>
+</mat-dialog-actions>

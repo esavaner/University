@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" routerLink="/">/logo/</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" routerLink="/">Scans</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" routerLink="/projects">Projects</a>
+            </li>
+            <!-- TODO: zmienic to na cos bardziej sensownego -->
+            <li *ngIf="currentUser.email=='admin@nokia.com'" class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdminLink" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Admin
+                </a>
+                <div class="dropdown-menu dropdown-default text-center" aria-labelledby="navbarDropdownAdminLink">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" routerLink="/users">Users</a>
+                </div>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{currentUser.email}}
+                </a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-default text-center"
+                    aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item mb-2" routerLink='/settings'>Settings</a>
+                    <button class="btn btn-primary" (click)="logout()">Logout</button>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>

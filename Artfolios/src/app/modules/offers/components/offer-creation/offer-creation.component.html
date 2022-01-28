@@ -1,0 +1,68 @@
+<mat-dialog-title>
+  <h2 *ngIf="!data.editable" class="text-primary font-weight-lighter">Create new offer</h2>
+  <h2 *ngIf="data.editable" class="text-primary font-weight-lighter">Edit your offer</h2>
+</mat-dialog-title>
+<form (keydown.enter)="$event.preventDefault()" (ngSubmit)="onSubmit()" [formGroup]="form" fxLayout="column"
+      class="p-2" fxLayoutAlign="space-between stretch">
+  <mat-dialog-content fxLayout="column" fxLayout.gt-sm="row wrap">
+    <mat-form-field fxFlex="70">
+      <input formControlName="title" matInput maxlength="50" placeholder="Title (max 50 characters)">
+    </mat-form-field>
+
+    <mat-form-field fxFlex="27" fxFlexOffset.gt-sm="3">
+      <mat-select formControlName="city" placeholder="City">
+        <ng-container *ngIf="cityPipe | async as list">
+          <mat-option *ngFor="let city of list; let i = index;" [value]="city">
+            {{city}}
+          </mat-option>
+        </ng-container>
+        <mat-option [value]="'Wrocław'">Wrocław</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    <mat-form-field fxFlex="100">
+      <textarea formControlName="description" matInput placeholder="Description (max 1000 characters)" rows="4"
+                [maxLength]="1000"></textarea>
+    </mat-form-field>
+
+    <mat-form-field fxFlex="32">
+      <input [matDatepicker]="picker" [min]="startNow" [max]="endInMonth" formControlName="endDate" matInput
+             placeholder="Expire on">
+      <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field fxFlex="32" fxFlexOffset.gt-sm="2">
+      <mat-icon matPrefix>attach_money</mat-icon>
+      <input [min]="0" formControlName="price" matInput placeholder="Price" type="number">
+    </mat-form-field>
+
+    <div [formGroup]="profession" fxFlex="32" fxFlexOffset.gt-sm="2" fxLayout="column">
+      <mat-form-field>
+        <mat-select formControlName="name" placeholder="Profession">
+          <ng-container *ngIf="professionPipe | async as list">
+            <mat-option *ngFor="let profession of list" [value]="profession.name">
+              {{profession.name}}
+            </mat-option>
+          </ng-container>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <div class="mt-3" fxFlex="100" fxLayout="row-reverse" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+      <button  *ngIf="!this.data.editable" class="btn btn-primary" type="submit">Publish</button>
+      <button *ngIf="this.data.editable" class="btn btn-primary" type="submit">Update</button>
+      <button (click)="confirmCancel()" class="btn btn-outline-primary">Cancel</button>
+      <ng-container *ngIf="saving">
+        <mat-spinner [diameter]="40"></mat-spinner>
+      </ng-container>
+      <ng-container *ngIf="error">
+        <p class="text-danger">Something went wrong, try again</p>
+      </ng-container>
+    </div>
+  </mat-dialog-actions>
+
+</form>
+

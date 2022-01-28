@@ -1,0 +1,55 @@
+language: java
+jdk:
+  - openjdk8
+install: true
+env:
+  -HEROKU_API_KEY=$HEROKU_TOKEN
+  -TAG=test
+services:
+  - docker
+before_install:
+  - npm install -g @angular/cli
+stages:
+  - name: test
+  - name: build
+  - name: deploy
+jobs:
+  include:
+    - stage: test
+      script:
+        - cd server
+        - chmod +x mvnw
+        #- mvn test
+        - cd ..
+        - echo "test stage works"
+    - stage: build
+      script:
+        - cd front
+        - npm install
+        - npm install express
+        - ng build --prod
+        - cd ..
+        - cd server
+        - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+        - echo "build stage works"
+    - stage: deploy
+      script:
+        - curl https://cli-assets.heroku.com/install-standalone.sh | sh
+        - docker login --username=_ --password=$HEROKU_TOKEN registry.heroku.com
+        - cd server
+        - mvn package -DskipTests=true
+        - docker build -t registry.heroku.com/nokia3s-server/web -f Dockerfile.prod .
+        - cd ..
+        - cd front
+        - npm install
+        - npm install express
+        - ng build --prod
+        - docker build -t registry.heroku.com/nokia3s-front/web -f Dockerfile.prod .
+        - docker push registry.heroku.com/nokia3s-server/web
+        - docker push registry.heroku.com/nokia3s-front/web
+        - /usr/local/bin/heroku container:release web -a nokia3s-server
+        - /usr/local/bin/heroku container:release web -a nokia3s-front
+        - echo "deploy stage works"
+cache:
+  directories:
+    - $HOME/.m2

@@ -1,0 +1,72 @@
+.chat {
+  margin: 8px 8px;
+  padding: 5px;
+  border-radius: 10px;
+  outline: none;
+}
+
+.chat:hover {
+  background-color: #e8e8e8;
+  cursor: pointer;
+}
+
+.activeChat {
+  background-color: #e8e8e8;
+}
+
+.top {
+  border-bottom: 1px solid #efebef;
+  padding: 15px 10px;
+}
+
+.topUser {
+  font-size: 1.5rem;
+}
+
+.username {
+  font-size: 1.1rem;
+}
+
+.lastMessage {
+  font-size: 0.9rem;
+  color: #b0b0b0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.timestamp {
+  font-size: 0.9rem;
+  color: #b0b0b0;
+  text-align: right;
+}
+
+.divider {
+  width: 1px;
+  height: 95vh;
+  background-color: #efebef;;
+}
+
+.img-list {
+  width: 60px;
+  height: 60px;
+}
+
+.circle-image {
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.unseen {
+  font-weight: bold;
+}
+
+.hide-mobile {
+}
+
+@media (max-width: 960px) {
+  .hide-mobile {
+    display: none !important;
+
+  }
+}

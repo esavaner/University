@@ -1,0 +1,25 @@
+table {
+    box-shadow: 0 0 5px rgb(214, 214, 214);
+}
+
+thead th {
+    font-size: 1em;
+    padding-top: 3px !important;
+    padding-bottom: 3px !important;
+    height: 15px;
+  }
+
+.positive {
+    background-color: rgb(77, 209, 77);
+    color: white;
+}
+
+.negative {
+    background-color: rgb(196, 76, 72);
+    color: white;
+}
+
+.waiting {
+    background-color: rgb(219, 167, 70);
+    color: white;
+}

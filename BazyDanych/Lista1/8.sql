@@ -1,0 +1,1 @@
+SELECT title FROM film WHERE rating = 'R' ORDER BY rental_duration DESC LIMIT 5;

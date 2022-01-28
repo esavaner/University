@@ -1,0 +1,39 @@
+
+<div fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="space-around stretch" fxLayoutGap="10px" id="user-card">
+  <div class="p-3" fxFlex="20" fxLayout="column" fxLayoutAlign="center center" id="user-photo">
+    <div>
+      <img alt="profile photo" src="{{photoUrl}}">
+      <ion-icon *ngIf="privateAccount" id="private-icon" name="lock" size="large" title="private account"></ion-icon>
+    </div>
+  </div>
+  <div class="pt-3" fxFlex="40" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="5px" id="user-data-1">
+    <h1>{{fullName}}</h1>
+    <p>
+      <ng-container *ngIf="gender !== ''">
+        <ion-icon name="{{gender}}"></ion-icon>
+      </ng-container>
+      {{dateOfBirth}}</p>
+    <p>{{address}}</p>
+    <p>{{phone}}</p>
+  </div>
+  <div class="pl-5 pr-5" fxFlex="40" fxLayout="column" fxLayoutAlign="start stretch" id="user-data-2">
+    <button *ngIf="!userHasPortfolio" class="btn btn-primary mb-2" routerLink="/profile/portfolio/creation">
+      <mat-icon [inline]="true">add</mat-icon>
+      Add portfolio
+    </button>
+    <button *ngIf="userHasPortfolio" class="btn btn-primary mb-2" routerLink="/profile/portfolio/{{userId}}">
+      <mat-icon [inline]="true">perm_identity</mat-icon>
+      Show portfolio
+    </button>
+    <button *ngIf="userHasPortfolio" class="btn btn-outline-primary mb-2" routerLink="/profile/portfolio/creation">
+      <mat-icon [inline]="true">edit</mat-icon>
+      Edit portfolio
+    </button>
+    <button class="btn btn-outline-primary mb-2" routerLink="/profile/settings">
+      <mat-icon [inline]="true">edit</mat-icon>
+      Edit profile
+    </button>
+    <add-button-offer fxLayout="column" fxLayoutAlign="start stretch"></add-button-offer>
+  </div>
+</div>
+<offer-list-filter [filterOwner]="userId"></offer-list-filter>

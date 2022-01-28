@@ -1,0 +1,59 @@
+<ng-container *ngIf="shouldShow">
+  <div [ngStyle]="{'background-color': backgroundColor, 'color': fontColor}" fxLayout="column" fxLayout.gt-sm="row"
+       fxLayoutAlign="space-between start" id="page-container">
+    <aside class="p-2" fxFlex="20" fxLayout="column" fxLayoutAlign="start stretch">
+      <img alt="profile photo" id="bio-photo" src="{{photo}}">
+      <h1 id="bio-name">{{name}}</h1>
+      <div id="bio-profs">
+        <p *ngFor="let prof of professions" [textContent]="'#' + prof.toString().replace(' ', '').replace('-','')"></p>
+      </div>
+      <app-ratebar [disabled]="false" [idUser]="ownerId"></app-ratebar>
+      <p id="bio-text">{{biography}}</p>
+      <div>
+        <ng-container *ngFor="let section of sections.controls; let first = first; let i = index">
+          <a *ngIf="!section.get('titleHide').value" [class.first-item]="first" [pageScrollDuration]="200"
+             [pageScrollOffset]="100"
+             class="section-title d-block text-break text-wrap"
+             href="#section{{i}}" pageScroll>
+            {{section.get('titleValue').value}}
+          </a>
+        </ng-container>
+      </div>
+    </aside>
+    <div class="p-2" fxFlex="80" fxLayout="column" id="sections"
+         fxLayoutAlign="start stretch">
+      <div *ngFor="let section of sections.controls; let i = index" class="section">
+        <section-show [parentForm]="section" id="section{{i}}"></section-show>
+      </div>
+    </div>
+  </div>
+
+  <ng-container *ngIf="isOwner">
+    <div fxFlexAlign="start stretch" fxLayout="row wrap" fxLayoutGap="10px" id="admin-panel" fxFlexAlign.gt-sm="end">
+      <button class="btn btn-info" routerLink="/profile">
+        <mat-icon [inline]="true">perm_identity</mat-icon>
+      </button>
+      <button class="btn btn-primary" routerLink="/profile/portfolio/creation">
+        <mat-icon [inline]="true">edit</mat-icon>
+      </button>
+      <button (click)="deletePortfolio($event)" class="btn btn-danger">
+        <mat-icon [inline]="true">delete</mat-icon>
+      </button>
+    </div>
+  </ng-container>
+</ng-container>
+<ng-container *ngIf="!shouldShow && !showError">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-container>
+<ng-container *ngIf="showError">
+  <div class="p-3 text-center" fxLayout="column" fxLayoutAlign="center center" ngClass.gt-sm="p-5">
+    <h3 class="text-primary font-weight-light m-3 p-2 mb-0">We didn't find the portfolio you're looking for :(</h3>
+    <p class="font-weight-light p-3">Here you can search for other extraordinary artist in Artfolios</p>
+    <mat-form-field appearance="standard" class="w-75" ngClass.gt-sm="w-50">
+      <mat-label>Search</mat-label>
+      <input #searchInput (keyup.enter)="redirectToSearch(searchInput.value)"
+             matInput placeholder="singer, photographer, DJ maybe?">
+      <mat-icon (click)="redirectToSearch(searchInput.value)" matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>
+</ng-container>
